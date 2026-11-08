@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FFVERSE – Free Fire AI Sensitivity Generator</title>
+  <meta name="description" content="Search your phone and get your Free Fire and Free Fire MAX sensitivity instantly. General, Red Dot, 2x, 4x, Sniper and Free Look settings for every device.">
+  <link rel="stylesheet" href="sensi.css">
+</head>
+<body class="ffv-page">
+
+<!-- ===================== COPY FROM HERE (into your website) ===================== -->
+<section id="ffv-gen" class="ffv" aria-labelledby="ffv-title">
+
+  <header class="ffv-header">
+    <div class="ffv-brand" aria-label="ffverse">ff<span>verse</span></div>
+    <h1 id="ffv-title">AI Sensitivity Generator</h1>
+    <p class="ffv-sub">Free Fire &amp; Free Fire MAX &middot; Search your phone, get your sensi</p>
+  </header>
+
+  <!-- STEP 1: FIND YOUR PHONE -->
+  <div class="ffv-card">
+    <h2 class="ffv-h2"><span class="ffv-step">1</span> Find your phone</h2>
+
+    <div class="ffv-search">
+      <label for="ffv-search" class="ffv-sr">Search your phone</label>
+      <input id="ffv-search" class="ffv-input" type="search" placeholder="Type your phone, e.g. Tecno Spark 10"
+             autocomplete="off" autocapitalize="off" spellcheck="false"
+             role="combobox" aria-expanded="false" aria-controls="ffv-suggest" aria-autocomplete="list">
+      <ul id="ffv-suggest" class="ffv-suggest" role="listbox" hidden></ul>
+    </div>
+
+    <button type="button" id="ffv-detect" class="ffv-btn ffv-btn-ghost ffv-btn-block">Detect my phone automatically</button>
+    <p class="ffv-hint" id="ffv-detect-note" role="status" aria-live="polite">Can't find your phone? Detect it, or pick a generic profile from the search list.</p>
+
+    <div class="ffv-device" id="ffv-device" hidden>
+      <span class="ffv-device-label">Your phone</span>
+      <strong class="ffv-device-name" id="ffv-device-name"></strong>
+      <span class="ffv-device-specs" id="ffv-device-specs"></span>
+    </div>
+
+    <details class="ffv-more">
+      <summary>Wrong specs or phone not listed? Edit manually</summary>
+      <div class="ffv-grid ffv-more-body">
+        <div class="ffv-field">
+          <label for="ffv-size">Screen size (inches)</label>
+          <input id="ffv-size" class="ffv-input" type="number" inputmode="decimal" min="4" max="13" step="0.01" value="6.5">
+          <p class="ffv-error" id="ffv-size-err" hidden>Enter a screen size between 4 and 13 inches.</p>
+        </div>
+
+        <div class="ffv-field">
+          <label for="ffv-hz">Refresh rate</label>
+          <select id="ffv-hz" class="ffv-input">
+            <option value="60">60 Hz</option>
+            <option value="90">90 Hz</option>
+            <option value="120">120 Hz</option>
+            <option value="144">144 Hz</option>
+            <option value="165">165 Hz</option>
+          </select>
+        </div>
+
+        <div class="ffv-field">
+          <label for="ffv-tier">Phone performance</label>
+          <select id="ffv-tier" class="ffv-input">
+            <option value="0">Entry-level (2–3 GB RAM)</option>
+            <option value="1" selected>Mid-range (4–6 GB RAM)</option>
+            <option value="2">High-end (8 GB RAM)</option>
+            <option value="3">Flagship (12 GB+ RAM)</option>
+          </select>
+        </div>
+
+        <div class="ffv-field">
+          <label for="ffv-touch">Touch sampling rate</label>
+          <select id="ffv-touch" class="ffv-input">
+            <option value="0" selected>Not sure</option>
+            <option value="120">120 Hz</option>
+            <option value="180">180 Hz</option>
+            <option value="240">240 Hz</option>
+            <option value="360">360 Hz</option>
+            <option value="480">480 Hz or more</option>
+          </select>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- STEP 2: PLAY STYLE -->
+  <div class="ffv-card">
+    <h2 class="ffv-h2"><span class="ffv-step">2</span> Your play style</h2>
+
+    <fieldset class="ffv-field">
+      <legend>Play style</legend>
+      <div class="ffv-chips">
+        <label class="ffv-chip"><input type="radio" name="style" value="rusher"><span>Rusher</span></label>
+        <label class="ffv-chip"><input type="radio" name="style" value="balanced" checked><span>Balanced</span></label>
+        <label class="ffv-chip"><input type="radio" name="style" value="headshot"><span>Headshot</span></label>
+        <label class="ffv-chip"><input type="radio" name="style" value="sniper"><span>Sniper</span></label>
+      </div>
+      <p class="ffv-hint" id="ffv-style-hint"></p>
+    </fieldset>
+
+    <fieldset class="ffv-field">
+      <legend>Fingers you use</legend>
+      <div class="ffv-chips">
+        <label class="ffv-chip"><input type="radio" name="fingers" value="2"><span>2</span></label>
+        <label class="ffv-chip"><input type="radio" name="fingers" value="3" checked><span>3</span></label>
+        <label class="ffv-chip"><input type="radio" name="fingers" value="4"><span>4</span></label>
+        <label class="ffv-chip"><input type="radio" name="fingers" value="5"><span>5+</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="ffv-field">
+      <legend>Experience</legend>
+      <div class="ffv-chips">
+        <label class="ffv-chip"><input type="radio" name="exp" value="beginner"><span>Beginner</span></label>
+        <label class="ffv-chip"><input type="radio" name="exp" value="intermediate" checked><span>Intermediate</span></label>
+        <label class="ffv-chip"><input type="radio" name="exp" value="pro"><span>Pro</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="ffv-field ffv-field-last">
+      <legend>Game version</legend>
+      <div class="ffv-chips">
+        <label class="ffv-chip"><input type="radio" name="game" value="Free Fire" checked><span>Free Fire</span></label>
+        <label class="ffv-chip"><input type="radio" name="game" value="Free Fire MAX"><span>Free Fire MAX</span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <section id="ffv-empty" class="ffv-card ffv-empty">
+    <p class="ffv-empty-title">Your sensitivity shows up here</p>
+    <p class="ffv-hint">Search your phone in step 1 and your settings appear instantly. Change your play style any time and they update live.</p>
+  </section>
+
+  <!-- RESULT -->
+  <section id="ffv-result" class="ffv-card ffv-result" hidden aria-labelledby="ffv-result-title">
+    <div class="ffv-result-head">
+      <h2 class="ffv-h2" id="ffv-result-title">Your settings</h2>
+      <span class="ffv-badge" id="ffv-match" title="How complete your device profile is. Use the fine-tune buttons to improve it.">Match 0%</span>
+    </div>
+    <p class="ffv-summary" id="ffv-summary"></p>
+
+    <div class="ffv-field ffv-quick">
+      <label for="ffv-style-quick">Play style</label>
+      <select id="ffv-style-quick" class="ffv-input">
+        <option value="rusher">Rusher</option>
+        <option value="balanced">Balanced</option>
+        <option value="headshot">Headshot</option>
+        <option value="sniper">Sniper</option>
+      </select>
+    </div>
+
+    <div id="ffv-rows" class="ffv-rows"></div>
+
+    <div class="ffv-tune">
+      <p class="ffv-tune-title">Not feeling it? Fine-tune:</p>
+      <div class="ffv-tune-btns">
+        <button type="button" class="ffv-btn ffv-btn-ghost" id="ffv-slower">Too fast</button>
+        <button type="button" class="ffv-btn ffv-btn-ghost" id="ffv-faster">Too slow</button>
+        <button type="button" class="ffv-btn ffv-btn-text" id="ffv-reset-tune">Reset</button>
+      </div>
+      <p class="ffv-hint" id="ffv-tune-note"></p>
+    </div>
+
+    <h3 class="ffv-h3">Tips for your setup</h3>
+    <ul class="ffv-tips" id="ffv-tips"></ul>
+
+    <div class="ffv-actions">
+      <button type="button" class="ffv-btn ffv-btn-primary" id="ffv-copy">Copy settings</button>
+      <button type="button" class="ffv-btn ffv-btn-ghost" id="ffv-share">Share on WhatsApp</button>
+    </div>
+
+    <div class="ffv-save">
+      <label for="ffv-preset-name">Save as preset</label>
+      <div class="ffv-save-row">
+        <input id="ffv-preset-name" class="ffv-input" type="text" maxlength="30" placeholder="e.g. Ranked setup">
+        <button type="button" class="ffv-btn ffv-btn-ghost" id="ffv-save">Save</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVED PRESETS -->
+  <section class="ffv-card" aria-labelledby="ffv-presets-title">
+    <h2 class="ffv-h2" id="ffv-presets-title">Saved presets</h2>
+    <p class="ffv-hint" id="ffv-no-presets">No presets yet. Get your settings and save one.</p>
+    <ul class="ffv-presets" id="ffv-presets"></ul>
+  </section>
+
+  <p class="ffv-disclaimer">
+    Results are a smart starting point calculated from your phone and play style. Every thumb is different,
+    so test in Training Ground and fine-tune. FFVERSE is an independent fan site and is not affiliated with
+    Garena. Free Fire is a trademark of Garena.
+  </p>
+
+  <div id="ffv-toast" class="ffv-toast" role="status" aria-live="polite"></div>
+</section>
+<!-- ====================== COPY UP TO HERE (into your website) ====================== -->
+
+<script src="sensi.js"></script>
+</body>
+</html>

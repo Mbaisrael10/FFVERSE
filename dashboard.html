@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | FFVERSE</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#07050d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body data-page="dashboard" class="is-loading">
+  <div class="bg-glow bg-glow--one" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--two" aria-hidden="true"></div>
+
+  <header class="dash-header">
+    <a href="index.html" class="brand" aria-label="FFVERSE home">FF<span>VERSE</span></a>
+    <nav class="dash-nav" aria-label="Account">
+      <a href="index.html">Home</a>
+      <button type="button" class="btn-small" id="logoutBtn">Log out</button>
+    </nav>
+  </header>
+
+  <main class="dash-main">
+    <section class="card profile-card" aria-label="Your profile">
+      <div class="avatar-current" id="currentAvatar"></div>
+      <div>
+        <h1>Welcome, <span id="welcomeName"></span></h1>
+        <p class="sub" id="userEmail"></p>
+        <p class="meta">Member since <span id="memberSince"></span> &middot; Signed in with <span id="provider"></span></p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="settings-title">
+      <h2 id="settings-title">Account settings</h2>
+      <form id="profileForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" autocomplete="username" maxlength="20">
+          <p class="hint">3 to 20 letters, numbers or underscores.</p>
+        </div>
+
+        <div class="field">
+          <span class="label" id="avatarLabel">Your avatar</span>
+          <div id="avatarPicker" class="avatar-grid" role="radiogroup" aria-labelledby="avatarLabel"></div>
+        </div>
+
+        <button type="submit" class="btn" id="profileBtn">Save changes</button>
+        <p class="msg" id="profileMessage" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="password-title">
+      <h2 id="password-title">Change password</h2>
+      <form id="passwordForm" novalidate>
+        <div class="field">
+          <label for="newPassword">New password</label>
+          <div class="pw-wrap">
+            <input type="password" id="newPassword" autocomplete="new-password" maxlength="72" placeholder="New password">
+            <button type="button" class="pw-toggle" data-toggle-password="newPassword" aria-pressed="false">Show</button>
+          </div>
+          <div class="strength"><div class="strength__bar" id="strengthBar" data-level="0"></div></div>
+          <p class="hint" id="strengthText">Use 8+ characters with upper and lower case letters and a number.</p>
+        </div>
+
+        <div class="field">
+          <label for="confirmNewPassword">Confirm new password</label>
+          <div class="pw-wrap">
+            <input type="password" id="confirmNewPassword" autocomplete="new-password" maxlength="72" placeholder="Type it again">
+            <button type="button" class="pw-toggle" data-toggle-password="confirmNewPassword" aria-pressed="false">Show</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn" id="passwordBtn">Update password</button>
+        <p class="msg" id="passwordMessage" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="avatar.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

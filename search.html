@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- ============ SEARCH BAR: paste this whole block where you want it ============ -->
+<style>
+  .sb-wrap { position: relative; max-width: 480px; margin: 20px auto; font-family: system-ui, -apple-system, Arial, sans-serif; }
+  .sb-input {
+    width: 100%; box-sizing: border-box; padding: 14px 16px; font-size: 16px; /* 16px stops iPhone auto-zoom */
+    border: 1.5px solid #ccc; border-radius: 12px; outline: none; background: #fff; color: #111;
+  }
+  .sb-input:focus { border-color: #111; }
+  .sb-list {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none;
+    background: #fff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    display: none; z-index: 999;
+  }
+  .sb-list.open { display: block; }
+  .sb-item a {
+    display: block; padding: 12px 14px; border-radius: 8px; color: #111; text-decoration: none; font-size: 16px;
+  }
+  .sb-item a:hover, .sb-item.active a { background: #f1f1f1; }
+  .sb-item small { display: block; color: #777; font-size: 12px; margin-top: 2px; }
+</style>
+
+<div class="sb-wrap">
+  <input id="sbInput" class="sb-input" type="search" placeholder="Search HUDS..." autocomplete="off" aria-label="Search">
+  <ul id="sbList" class="sb-list" role="listbox"></ul>
+</div>
+
+<script>
+  // ---- EDIT THIS PART: your suggestions and where each one should take people ----
+  var SUGGESTIONS = [
+    {
+      label: "3 Fingers HUDS",
+      url: "/search?q=3+fingers+HUDS",            // <-- change to your real search/results page
+      terms: "3 finger huds, 3 fingers huds, three finger huds, three fingers huds, 3fingers huds"
+    },
+    {
+      label: "2 Finger HUDS",
+      url: "/search?q=2+finger+HUDS",             // <-- change to your real search/results page
+      terms: "2 finger huds, 2 fingers huds, two finger huds, two fingers huds, 2fingers huds"
+    },
+    {
+      label: "HUDS",
+      url: "/search?q=HUDS",                      // <-- change to your real search/results page
+      terms: "huds"
+    }
+  ];
+  // Where Enter goes if nothing matches (the query gets added to the end):
+  var FALLBACK_URL = "/search?q=";
+  // ---------------------------------------------------------------------------------
+
+  (function () {
+    var input = document.getElementById("sbInput");
+    var list = document.getElementById("sbList");
+    var current = [];
+    var activeIndex = -1;
+
+    function clean(s) {
+      return s.toLowerCase().replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
+    }
+
+    function findMatches(q) {
+      q = clean(q);
+      if (!q) return [];
+      var tokens = q.split(" ");
+      return SUGGESTIONS.filter(function (item) {
+        var haystack = clean(item.label + " " + item.terms);
+        return tokens.every(function (t) { return haystack.indexOf(t) !== -1; });
+      });
+    }
+
+    function render() {
+      list.innerHTML = "";
+      activeIndex = -1;
+      current = findMatches(input.value);
+      if (!current.length) { list.classList.remove("open"); return; }
+      current.forEach(function (item) {
+        var li = document.createElement("li");
+        li.className = "sb-item";
+        li.setAttribute("role", "option");
+        var a = document.createElement("a");
+        a.href = item.url;                 // tapping/clicking goes straight to the related search
+        a.textContent = item.label;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      list.classList.add("open");
+    }
+
+    function setActive(i) {
+      var items = list.querySelectorAll(".sb-item");
+      items.forEach(function (el) { el.classList.remove("active"); });
+      activeIndex = i;
+      if (i >= 0 && items[i]) items[i].classList.add("active");
+    }
+
+    input.addEventListener("input", render);
+    input.addEventListener("focus", render);
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); setActive(Math.min(activeIndex + 1, current.length - 1)); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActive(Math.max(activeIndex - 1, 0)); }
+      else if (e.key === "Escape") { list.classList.remove("open"); }
+      else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeIndex >= 0) window.location.href = current[activeIndex].url;
+        else if (current.length) window.location.href = current[0].url;
+        else if (input.value.trim()) window.location.href = FALLBACK_URL + encodeURIComponent(input.value.trim());
+      }
+    });
+
+    // Close the dropdown when tapping elsewhere
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".sb-wrap")) list.classList.remove("open");
+    });
+  })();
+</script>
+<!-- ============================== END SEARCH BAR ============================== -->
+
+</body>
+</html>

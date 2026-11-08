@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | FFVERSE</title>
+  <meta name="theme-color" content="#07050d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body data-page="login">
+  <div class="bg-glow bg-glow--one" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--two" aria-hidden="true"></div>
+
+  <main class="auth-main">
+    <section class="auth-card">
+      <a href="index.html" class="brand" aria-label="FFVERSE home">FF<span>VERSE</span></a>
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to your FFVERSE account.</p>
+
+      <div class="social">
+        <button type="button" class="btn-social" data-provider="google">
+          <span class="social-icon" aria-hidden="true">G</span> Continue with Google
+        </button>
+        <button type="button" class="btn-social" data-provider="facebook">
+          <span class="social-icon" aria-hidden="true">f</span> Continue with Facebook
+        </button>
+      </div>
+
+      <div class="divider"><span>or log in with email</span></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" autocomplete="email" maxlength="100" placeholder="you@example.com">
+        </div>
+
+        <div class="field" id="passwordField">
+          <label for="password">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="password" autocomplete="current-password" maxlength="72" placeholder="Your password">
+            <button type="button" class="pw-toggle" data-toggle-password="password" aria-pressed="false">Show</button>
+          </div>
+          <p class="hint">Forgot your password? Choose "Email me a login code instead" below, then set a new password in your dashboard.</p>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Log in</button>
+        <button type="button" class="btn-link" id="switchMode">Email me a login code instead</button>
+        <p class="msg" id="message" role="alert" aria-live="polite"></p>
+      </form>
+
+      <p class="switch">New to FFVERSE? <a href="signup.html">Create an account</a></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="avatar.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
